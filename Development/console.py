@@ -5,7 +5,7 @@ from models.match import Match
 import repositories.match_repository as match_repository
 import repositories.team_repository as team_repository
 
-
+match_repository.delete_all()
 team_repository.delete_all()
 
 team1 = Team("Big Belly Boys", "Grub Arena")
@@ -25,6 +25,12 @@ match3 = Match(team4, 2, 0, team1)
 match_repository.save(match3)
 match4 = Match(team3, 4, 0, team2)
 match_repository.save(match4)
+
+match_repository.select_all()
+team_repository.select_all()
+
+team1.team_name = "test"
+team_repository.update(team1)
 
 team_repository.select_all()
 
