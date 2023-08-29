@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask import Blueprint
 from models.team import Team
+from models.match import Match
 import repositories.match_repository as match_repository
 import repositories.team_repository as team_repository
 
@@ -46,8 +47,11 @@ def edit_team(id):
 
 #  UPDATE
 # PUT '/teams/;<id>'
-@teams_blueprint.route("/tasks/<id>", methods = ['POST'])
+@teams_blueprint.route("/teams/<id>", methods = ['POST'])
 def update_team(id):
     team_name = request.form['team_name']
-    stadium = request.form['stadium']
-    team = team_repository.select(team_name)
+    team = team_repository.select_team(id)
+    team.team_name = team_name
+    team_repository.update(team)
+    return redirect('/teams')
+
