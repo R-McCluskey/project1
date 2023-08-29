@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div> Here is the list of the teams in the Sports League, for more information, click the team you are interested in! </div>
+
+{% for team in all_teams %}
+    <div class="team">
+        <div class="Club">
+            <div class = "team_name">
+                <a href = "/teams/{{team.id}}">{{team.team_name}}</a>
+                <!-- <span class="stadium"> - Stadium: {{team.stadium}} </span> -->
+
+
+            </div>
+
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

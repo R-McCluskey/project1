@@ -29,8 +29,8 @@ match_repository.save(match4)
 match_repository.select_all()
 team_repository.select_all()
 
-team1.team_name = "test"
-team_repository.update(team1)
+# team1.team_name = "test"
+# team_repository.update(team1)
 
 team_repository.select_all()
 

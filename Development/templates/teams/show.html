@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div>
+    <p>{{team.team_name}}</p>
+    <hr>
+    <p> "{{team.stadium}}" is the name of this teams stadium.</p>
+    <p> Here is a list of the matches that {{team.team_name}} has played.</p>
+    <p> </p>
+    <p><a href="/teams/{{team.id}}/edit"> Edit team</a></p>
+</div>
+
+{% endblock %}
