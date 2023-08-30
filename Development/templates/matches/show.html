@@ -9,8 +9,8 @@
     <p><a href="/matches/{{match.id}}/edit"> Edit match Details</a></p>
 </div>
 
-{% if win_loss.name != Draw %}
-Team that won : {{win_loss.name}}
+{% if match.win_loss() != "Draw" %}
+Team that won : {{match.win_loss().team_name}}
 {% else %}
 The game ended in a draw.
 {% endif %}

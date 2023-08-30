@@ -1,7 +1,7 @@
 import pdb
 from flask import Flask, render_template, request, redirect
 from flask import Blueprint
-from models.match import Match
+from models.match import *
 import repositories.match_repository as match_repository
 import repositories.team_repository as team_repository
 
@@ -36,7 +36,8 @@ def create_match():
 @matches_blueprint.route("/matches/<id>", methods=['GET'])
 def show_match(id):
     match = match_repository.select_match(id)
-    return render_template('matches/show.html', match=match)
+    winner = Match.win_loss(match)
+    return render_template('matches/show.html', match=match, winner=winner)
 
 # EDIT 
 # GET '/matches/<id>/edit'

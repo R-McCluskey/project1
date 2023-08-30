@@ -54,3 +54,17 @@ def update(match):
     sql = "UPDATE matches SET (team_1, score_1, score_2, team_2) = (%s, %s, %s, %s) WHERE id = %s"
     values = [match.team_1.id, match.score_1, match.score_2, match.team_2.id, match.id]
     run_sql(sql, values)
+
+def matchbyteam(team):
+    matches=[]
+    sql = "SELECT * FROM matches WHERE team_1=%s OR team_2 = %s"
+    values = [team.id,team.id]
+    results = run_sql(sql, values)
+
+    for row in results:
+        team_1 = team_repository.select_team(row['team_1'])
+        team_2 = team_repository.select_team(row['team_2'])
+        match = Match(team_1, row['score_1'], row['score_2'], team_2, row['id'])
+        matches.append(match)
+    return matches
+

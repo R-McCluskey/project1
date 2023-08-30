@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask import Blueprint
 from models.team import Team
 import pdb
-# from models.match import Match
+from models.match import *
 import repositories.match_repository as match_repository
 import repositories.team_repository as team_repository
 
@@ -64,3 +64,16 @@ def delete_team(id):
     team_repository.delete_team(id)
     return redirect("/teams")
 
+@teams_blueprint.route("/teams/<id>", methods=['GET'])
+def matchbyteam(team):
+    matches=[]
+    sql = "SELECT * FROM matches WHERE team_1=%s OR team_2 = %s"
+    values = [team.id,team.id]
+    results = run_sql(sql, values)
+
+    for row in results:
+        team_1 = team_repository.select_team(row['team_1'])
+        team_2 = team_repository.select_team(row['team_2'])
+        match = Match(team_1, row['score_1'], row['score_2'], team_2, row['id'])
+        matches.append(match)
+    return matches
