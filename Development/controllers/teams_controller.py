@@ -36,7 +36,8 @@ def create_team():
 @teams_blueprint.route("/teams/<id>", methods=['GET'])
 def show_team(id):
     team = team_repository.select_team(id)
-    return render_template('teams/show.html', team=team)
+    matches_by_team = match_repository.matchbyteam(team)
+    return render_template('teams/show.html', team=team, matches_by_team = matches_by_team)
 
 # EDIT 
 # GET '/teams/<id>/edit'
@@ -64,16 +65,3 @@ def delete_team(id):
     team_repository.delete_team(id)
     return redirect("/teams")
 
-@teams_blueprint.route("/teams/<id>", methods=['GET'])
-def matchbyteam(team):
-    matches=[]
-    sql = "SELECT * FROM matches WHERE team_1=%s OR team_2 = %s"
-    values = [team.id,team.id]
-    results = run_sql(sql, values)
-
-    for row in results:
-        team_1 = team_repository.select_team(row['team_1'])
-        team_2 = team_repository.select_team(row['team_2'])
-        match = Match(team_1, row['score_1'], row['score_2'], team_2, row['id'])
-        matches.append(match)
-    return matches

@@ -5,8 +5,14 @@
     <p>{{team.team_name}}</p>
     <hr>
     <p> "{{team.stadium}}" is the name of this teams stadium.</p>
-    <p> Here is a list of the matches that "{{team.team_name}}"" have played.</p>
-    <p> </p>
+    <p> Here is a list of the matches that "{{team.team_name}}" have played:</p>
+
+    {% for match in matches_by_team %}
+    <p> ----------------------------------------- </p>
+    <p> {{match.team_1.team_name}} vs {{match.team_2.team_name}}, played at the {{match.team_1.stadium}} </p>
+    <p> Score was : {{match.score_1}} - {{match.score_2}} , {{ match.win_loss() }}</p>
+    <p> ----------------------------------------- </p>
+    {% endfor %}
     <p><a href="/teams/{{team.id}}/edit"> Edit team</a></p>
 </div>
 

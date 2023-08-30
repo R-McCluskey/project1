@@ -5,13 +5,9 @@
     <p> Game {{match.id}} </p>
     <hr>
     <p> {{match.team_1.team_name}} vs {{match.team_2.team_name}}</p>
-    <p> {{match.score_1}} - {{match.score_2}}</p>
+    <p> {{match.score_1}} - {{match.score_2}} </p>
+    <p> The game was played at {{match.team_1.stadium}}, and {{ match.win_loss() }}    </p>
     <p><a href="/matches/{{match.id}}/edit"> Edit match Details</a></p>
 </div>
 
-{% if match.win_loss() != "Draw" %}
-Team that won : {{match.win_loss().team_name}}
-{% else %}
-The game ended in a draw.
-{% endif %}
 {% endblock %}

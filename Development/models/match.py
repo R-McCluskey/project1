@@ -9,8 +9,8 @@ class Match:
 
     def win_loss(self):
         if self.score_1 > self.score_2:
-            return self.team_1
+            return f"{self.team_1.team_name} won the game."
         if self.score_2 > self.score_1:
-            return self.team_2
+            return f"{self.team_2.team_name} won the game."
         if self.score_1 == self.score_2:
-            return "Draw"
+            return f"The match ended in a draw."
