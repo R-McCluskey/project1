@@ -3,6 +3,7 @@ from db.run_sql import run_sql
 
 from models.match import Match
 from models.team import Team
+import repositories.team_repository as team_repository
 
 def save(match):
     # pdb.set_trace()
@@ -20,7 +21,9 @@ def select_all():
     results = run_sql(sql)
 
     for row in results:
-        match = Match(row['team_1'], row['score_1'], row['score_2'], row['team_2'], row['id'])
+        team_1 = team_repository.select_team(row['team_1'])
+        team_2 = team_repository.select_team(row['team_2'])
+        match = Match(team_1, row['score_1'], row['score_2'], team_2, row['id'])
         matches.append(match)
     return matches
 
@@ -32,7 +35,9 @@ def select_match(id):
 
     if results:
         result = results[0]
-        match = Match(result['team_1'], result['score_1'], result['score_2'], result['team_2'], result['id'])
+        team_1 = team_repository.select_team(result['team_1'])
+        team_2 = team_repository.select_team(result['team_2'])
+        match = Match(team_1, result['score_1'], result['score_2'], team_2, result['id'])
     return match
 
 def delete_all():
@@ -45,6 +50,7 @@ def delete_match(id):
     run_sql(sql, values)
 
 def update(match):
+    # pdb.set_trace()
     sql = "UPDATE matches SET (team_1, score_1, score_2, team_2) = (%s, %s, %s, %s) WHERE id = %s"
-    values = [match.team_1, match.score_1, match.score_2, match.team_2, match.id]
+    values = [match.team_1.id, match.score_1, match.score_2, match.team_2.id, match.id]
     run_sql(sql, values)

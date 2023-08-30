@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="/teams" method="post">
+  <div>
+    <label for="team_name">Team Name :</label>
+    <input type="text" id="team_name" name="team_name" placeholder="Team_name" required autofocus>
+  </div>
+
+  <div>
+    <label for="stadium">Stadium Name :</label>
+    <input type="text" id="stadium" name="stadium" placeholder="Stadium">
+  </div>
+
+
+  <button type="submit">Add Team</button>
+
+</form>
+
+{% endblock %}

@@ -17,3 +17,17 @@ Extension
 -----------------
 Extended Extension
 * Teams have players that can be inspected, and potentially see their stats, their game form. 
+
+
+
+
+
+
+
+
+----------------------------
+SETUP
+
+1) Create a database - Database name is sports_league
+2) psql -d sports_league -f sports_league.sql   -  This is what you run to test in console. Make sure to drop Database and re-create them if needed (dropdb sports_league, createdb sports_league).
+3) 

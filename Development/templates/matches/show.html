@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div>
+    <p> Game {{match.id}} </p>
+    <hr>
+    <p> {{match.team_1.team_name}} vs {{match.team_2.team_name}}</p>
+    <p> {{match.score_1}} - {{match.score_2}}</p>
+    <p><a href="/matches/{{match.id}}/edit"> Edit match Details</a></p>
+</div>
+
+{% if win_loss.name != Draw %}
+Team that won : {{win_loss.name}}
+{% else %}
+The game ended in a draw.
+{% endif %}
+{% endblock %}

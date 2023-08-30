@@ -6,3 +6,11 @@ class Match:
         self.score_2 = score_2
         self.team_2 = team_2
         self.id = id 
+
+def win_loss(match):
+    if match.score_1 > match.score_2:
+        return match.team_1
+    if match.score_2 > match.score_1:
+        return match.team_2
+    if match.score_1 == match.score_2:
+        return "Draw"

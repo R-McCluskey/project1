@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect
 from flask import Blueprint
 from models.team import Team
-from models.match import Match
+import pdb
+# from models.match import Match
 import repositories.match_repository as match_repository
 import repositories.team_repository as team_repository
 
@@ -25,8 +26,8 @@ def new_team():
 def create_team():
     team_name = request.form['team_name']
     stadium = request.form['stadium']
-    match = match_repository.select_match(team_name)
-    # team = Team(team_name, stadium, match) ----- NOT SURE IF I NEED THIS AT THE MOMENT, DOESNT MAKE SENSE, PREVIOUS CODE SHOWS
+    # match = match_repository.select_match(team_name) ----- NOT SURE IF I NEED THIS AT THE MOMENT, DOESNT MAKE SENSE, PREVIOUS CODE SHOWS
+    team = Team(team_name, stadium, id) 
     team_repository.save(team)
     return redirect('/teams')
 
@@ -50,8 +51,16 @@ def edit_team(id):
 @teams_blueprint.route("/teams/<id>", methods = ['POST'])
 def update_team(id):
     team_name = request.form['team_name']
+    stadium = request.form['stadium']
     team = team_repository.select_team(id)
     team.team_name = team_name
+    team.stadium = stadium
     team_repository.update(team)
     return redirect('/teams')
+
+@teams_blueprint.route("/teams/<id>/delete", methods=['POST'])
+def delete_team(id):
+    # pdb.set_trace()
+    team_repository.delete_team(id)
+    return redirect("/teams")
 
